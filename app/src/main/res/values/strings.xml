@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">ShopifyChallenge</string>
+    <string name="title_activity_view_cart">ViewCart</string>
+</resources>
