@@ -39,6 +39,6 @@ public class Product {
                 "\nVendor: " + this.vendor +
                 "\nProduct Type: " + this.product_type +
                 "\nTags: " + this.tags +
-                "\nVariants: \n\t" + TextUtils.join("\n\t", this.variants);
+                "\nOptions: \n\t" + TextUtils.join("\n\t", this.variants);
     }
 }

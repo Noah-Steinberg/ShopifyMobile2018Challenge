@@ -42,23 +42,17 @@ public class ViewProduct extends AppCompatActivity {
                 final EditText inputVariant = new EditText(ViewProduct.this);
                 inputVariant.setInputType(InputType.TYPE_CLASS_TEXT);
                 getVariant.setView(inputVariant);
-                getVariant.setTitle("Enter Variant Number (1 or higher)");
+                getVariant.setTitle("Enter Option ID");
                 getVariant.setPositiveButton("Enter", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         variant[0] = inputVariant.getText().toString();
-                        boolean failed;
-                        try {
-                            Integer variantNo = Integer.parseInt(variant[0]);
-                            failed = !ListProducts.addToCart(variantNo);
-                        }catch (NumberFormatException e){
-                            failed = true;
-                        }
+                        boolean failed = !ListProducts.addToCart(variant[0]);
                         if(failed){
                             AlertDialog.Builder failedAlert;
                             failedAlert = new AlertDialog.Builder(ViewProduct.this);
                             failedAlert.setTitle("Add to Cart Failed")
-                                    .setMessage("Please Enter the Number (Starting at 1) of the variant you wish to add");
+                                    .setMessage("Please Enter A Valid Option ID");
                             failedAlert.setPositiveButton("Ok", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {

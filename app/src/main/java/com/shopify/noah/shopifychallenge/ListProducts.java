@@ -11,6 +11,7 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ListView;
@@ -54,21 +55,38 @@ public class ListProducts extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
                 currentProduct = displayList.get(i);
-                if(currentProduct.image.getBmp()==null){
+                if (currentProduct.image.getBmp() == null) {
                     Snackbar snackbar = Snackbar
                             .make(view.getRootView(), "Please wait for the item to fully load", Snackbar.LENGTH_SHORT);
                     snackbar.show();
-                }
-                else{
+                } else {
                     Intent intent = new Intent(ListProducts.this, ViewProduct.class);
                     intent.putExtra("ProductImage", currentProduct.image.getBmp());
                     intent.putExtra("ProductDetails", currentProduct.detailsToString());
                     startActivity(intent);
 
                 }
-                Log.d("CLICK EVENT", "Clicked on product: " + currentProduct);
             }
         });
+    }
+    @Override
+    protected void onResume(){
+        try {
+            Log.d("CHECK", "Getting Button View");
+            Button cart = findViewById(R.id.viewcart);
+            Integer size=0;
+            for (Product key : ListProducts.cart.keySet()) {
+                Log.d("CHECK","Checking Product Size");
+                size += ListProducts.cart.get(key).size();
+            }
+            Log.d("CHECK","Setting Button Text");
+            cart.setText(size.toString());
+        }
+        catch(Exception e){
+            Log.d("CHECK","Error Occured" + e.toString());
+            e.printStackTrace();
+        }
+        super.onResume();
     }
     public void onCartClick(View view){
         Intent intent = new Intent(ListProducts.this, ViewCart.class);
@@ -150,19 +168,23 @@ public class ListProducts extends AppCompatActivity {
         return newList;
     }
 
-    public static boolean addToCart(Integer variant){
-        variant--;
-        try{
-            if(cart.containsKey(currentProduct)){
-                cart.get(currentProduct).add(currentProduct.variants.get(variant));
+    public static boolean addToCart(String id){
+        ProductVariant selected = null;
+        for(ProductVariant v: currentProduct.variants){
+            if(v.id.equals(id)){
+                selected = v;
             }
-            else {
-                List<ProductVariant> tmp = new ArrayList<>();
-                tmp.add(currentProduct.variants.get(variant));
-                cart.put(currentProduct, tmp);
-            }
-        }catch (Exception e){
+        }
+        if(selected==null){
             return false;
+        }
+        if(cart.containsKey(currentProduct)){
+            cart.get(currentProduct).add(currentProduct.variants.get(currentProduct.variants.indexOf(selected)));
+        }
+        else {
+            List<ProductVariant> tmp = new ArrayList<>();
+            tmp.add(currentProduct.variants.get(currentProduct.variants.indexOf(selected)));
+            cart.put(currentProduct, tmp);
         }
         return true;
     }

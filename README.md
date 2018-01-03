@@ -4,6 +4,7 @@ This respository is my submission for the Shopify 2018 Mobile Intership Applicat
 This challenge was coded in Android Studio 3.0.1 for Android SDK 14 onwards.
 It was tested using a Pixel 2 XL Virtual Device with Android 8.1.0 and a physical Samsung A5 7.0
 The videos for testing included in my application were performed on the physical Samsung A5 device.
+Videos/Screenshots included in the same directory as this readme
 
 **Features:**
   1. Retrieves data from given endpoint 

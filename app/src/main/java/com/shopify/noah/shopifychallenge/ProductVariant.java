@@ -10,13 +10,15 @@ import java.util.ArrayList;
 
 public class ProductVariant {
     public String title;
+    public String id;
     public String price;
     public String weight;
     public String weight_unit;
     public String inventory_quantity;
     public String requires_shipping;
-    public ProductVariant(String title, String price, String weight, String weight_unit, String inventory_quantity, String requires_shipping){
+    public ProductVariant(String title, String id, String price, String weight, String weight_unit, String inventory_quantity, String requires_shipping){
         this.title = title;
+        this.id = id;
         this.price = price;
         this.weight = weight;
         this.weight_unit = weight_unit;
@@ -25,11 +27,12 @@ public class ProductVariant {
     }
 
     public String toString(){
-        return "Color: " + this.title +
+        return "ID: " + this.id +
+                "\n\tColor: " + this.title +
                 "\n\tPrice: $" + this.price +
                 "\n\tWeight: " + this.weight + this.weight_unit +
-                "\n\tQuantity: " + this.inventory_quantity +
-                "\n\tEligible for Shipping: " + this.requires_shipping + "\n";
+                "\n\tInventory: " + this.inventory_quantity +
+                "\n\tShipping Available: " + (this.requires_shipping.equals("true") ? "Yes": "No") + "\n";
     }
     public String simpleString(){
         return "Color: " + this.title +
